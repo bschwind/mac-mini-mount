@@ -1,4 +1,4 @@
-$fn=50;
+$fn=200;
 
 // All dimensions are in millimeters
 
@@ -9,7 +9,7 @@ corner_radius = 30;
 
 // The overall thickness of the outer shell
 thickness = 2;
-top_bottom = 1;
+top_bottom = 3;
 
 module rounded_box(w,d,h,r) {
     translate([r,r,0])
@@ -38,11 +38,11 @@ module port_cutouts() {
 
     // X coordinates of various ports, starting from the left
     power_button_left = 10;
-    ethernet_port_right = 52;
+    ethernet_port_right = 53;
     fan_left = 60;
-    fan_right = fan_left + fan_width;
-    left_usb_port_left = body_width - 55;
-    right_usb_port_right = body_width - 26;
+    fan_right = 131;
+    left_usb_port_left = 137;
+    right_usb_port_right = 170;
 
     translate([0, 50, 0])
     rotate([90, 0, 0])
@@ -75,8 +75,30 @@ module port_cutouts() {
     };
 }
 
+module top_cutout() {
+    union() {
+        translate([-100, 70, 0]) cube([400, 400, 400]);
+        translate([-100, body_depth/2, -20]) cube([400, 400, 400]);
+    }
+}
+
+module curved_front_cutout() {
+    translate([100, 100, 0]) cylinder(h=300, r=90);
+}
+
+module mounting_hole(x, y) {
+    hole_diameter = 4.5;
+    translate([x, y, -20]) cylinder(r = hole_diameter / 2, h = 30);
+}
+
 difference() {
     outer_shell();
     mac_mini_body();
     port_cutouts();
+    top_cutout();
+    curved_front_cutout();
+    mounting_hole(6, 90);
+    mounting_hole(body_width - 6, 90);
+    mounting_hole((body_width / 2) - 7, 6);
+    mounting_hole((body_width / 2) + 7, 6);
 }
