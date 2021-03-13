@@ -68,8 +68,8 @@ module port_cutouts() {
             [
                 [left_usb_port_left - port_padding, top_bottom],
                 [left_usb_port_left - port_padding, body_height - top_bottom],
-                [right_usb_port_right + port_padding, body_height - top_bottom],
-                [right_usb_port_right + port_padding, top_bottom],
+                [right_usb_port_right + port_padding+12, body_height - top_bottom],
+                [right_usb_port_right + port_padding+12, top_bottom],
             ]
         );
     };
