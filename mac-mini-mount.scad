@@ -9,7 +9,6 @@ corner_radius = 30;
 
 // The overall thickness of the outer shell
 thickness = 2;
-top_bottom = 3;
 
 module rounded_box(w,d,h,r) {
     translate([r,r,0])
@@ -31,18 +30,22 @@ module outer_shell() {
 }
 
 module port_cutouts() {
-    fan_width = 72;
+    fan_width = 71;
 
     // How far the cutouts should be from the ports themselves
     port_padding = 1;
 
     // X coordinates of various ports, starting from the left
-    power_button_left = 10;
-    ethernet_port_right = 53;
-    fan_left = 60;
-    fan_right = 131;
-    left_usb_port_left = 137;
-    right_usb_port_right = 170;
+    power_button_left = 9;
+    ethernet_port_right = 56;
+    fan_left = 63;
+    fan_right = 134;
+    left_usb_port_left = 141;
+    right_usb_port_right = 171;
+
+    // The insets for the top and bottom of the port cutouts.
+    top_inset = 3;
+    bottom_inset = 7;
 
     translate([0, 50, 0])
     rotate([90, 0, 0])
@@ -50,26 +53,26 @@ module port_cutouts() {
     union() {
         polygon(
             [
-                [power_button_left - port_padding, top_bottom],
-                [power_button_left - port_padding, body_height - top_bottom],
-                [ethernet_port_right + port_padding, body_height - top_bottom],
-                [ethernet_port_right + port_padding, top_bottom],
+                [power_button_left - port_padding, bottom_inset],
+                [power_button_left - port_padding, body_height - top_inset],
+                [ethernet_port_right + port_padding, body_height - top_inset],
+                [ethernet_port_right + port_padding, bottom_inset],
             ]
         );
         polygon(
             [
-                [fan_left - port_padding, top_bottom],
-                [fan_left - port_padding, body_height - top_bottom],
-                [fan_right + port_padding, body_height - top_bottom],
-                [fan_right + port_padding, top_bottom],
+                [fan_left - port_padding, bottom_inset],
+                [fan_left - port_padding, body_height - top_inset],
+                [fan_right + port_padding, body_height - top_inset],
+                [fan_right + port_padding, bottom_inset],
             ]
         );
         polygon(
             [
-                [left_usb_port_left - port_padding, top_bottom],
-                [left_usb_port_left - port_padding, body_height - top_bottom],
-                [right_usb_port_right + port_padding+12, body_height - top_bottom],
-                [right_usb_port_right + port_padding+12, top_bottom],
+                [left_usb_port_left - port_padding, bottom_inset],
+                [left_usb_port_left - port_padding, body_height - top_inset],
+                [right_usb_port_right + port_padding+12, body_height - top_inset],
+                [right_usb_port_right + port_padding+12, bottom_inset],
             ]
         );
     };
@@ -77,7 +80,7 @@ module port_cutouts() {
 
 module top_cutout() {
     union() {
-        translate([-100, 70, 0]) cube([400, 400, 400]);
+        translate([-100, 100, 0]) cube([400, 400, 400]);
         translate([-100, body_depth/2, -20]) cube([400, 400, 400]);
     }
 }
@@ -91,6 +94,7 @@ module mounting_hole(x, y) {
     translate([x, y, -20]) cylinder(r = hole_diameter / 2, h = 30);
 }
 
+rotate([90, 0, 0])
 difference() {
     outer_shell();
     mac_mini_body();
