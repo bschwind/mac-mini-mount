@@ -6,6 +6,8 @@ The `.x3g` file was created for the Flashforge Creator Pro.
 
 OpenSCAD can generate a `.stl` file from `.scad` source, which can then be imported into your 3D printer software of choice.
 
+I used zip ties to attach the case the wire wall rack.
+
 ![open-scad](./images/open_scad.png)
 
 ![STL Rendering](./images/stl_file.png)
